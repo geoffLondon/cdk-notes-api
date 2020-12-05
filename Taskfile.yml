@@ -1,0 +1,307 @@
+version: '2'
+
+silent: true
+
+vars:
+  BUILD:
+    sh: git rev-parse --short HEAD
+  GOBIN: bin
+  LDFLAGS: -ldflags "-X=main.Version={{.BUILD}} -X=main.Build={{.BUILD}}"
+  SELF: "cdk-notes-api"
+
+tasks:
+  default:
+    cmds:
+      - task: build
+
+  install:
+    desc: Install all of the Go dependencies and set up your enviroment
+    deps: [binary-dependencies]
+    cmds:
+      - go env -w GOPRIVATE=github.com/geoffLondon/
+
+  binary-dependencies:
+    desc: Install Go binary dependencies
+    cmds:
+      - task: go-get
+        vars: {REPO: github.com/google/wire/cmd/wire}
+      - task: go-get
+        vars: {REPO: github.com/onsi/ginkgo/ginkgo}
+      - task: go-get
+        vars: {REPO: github.com/onsi/gomega/...}
+      - task: go-get
+        vars: {REPO: github.com/golang/mock/mockgen}
+
+  go-get:
+    desc: Execute go-get against a certain repo
+    cmds:
+      - go get {{.REPO}}
+
+  test:unit:
+    desc: Execute all the unit tests
+    deps: [wires, mocks]
+    sources:
+      - '*/**.go'
+      - 'wire.go'
+    cmds:
+      - ginkgo -r -tags unit
+
+  test:int:
+    desc: Execute all the integration tests
+    deps: [wires]
+    sources:
+      - '*/**.go'
+      - 'wire.go'
+    cmds:
+      - docker ps -q --filter ancestor=dynamodbtest  | grep . && docker stop $(docker ps -q --filter ancestor=dynamodbtest) > /dev/null || echo "no dynamodbtest container to reset"
+      - docker build -t dynamodbtest .
+      - docker run --rm -p 8000:8000 -d dynamodbtest
+      - task: test:integration
+      - docker stop $(docker ps -q --filter ancestor=dynamodbtest) > /dev/null
+
+  test:integration:
+    cmds:
+      - go test -v ./... -count=1 -p 1 -tags integration
+
+  test:
+    cmds:
+      - task: test:unit
+      - task: test:int
+
+  mocks:
+    desc: Generate all the mocks needed for the tests
+    cmds:
+      - task: mockgen:source
+        vars: {SOURCE_FILE: aws/dynamodb/client.go}
+      - task: mockgen:source
+        vars: {SOURCE_FILE: uuid/uuid.go}
+      - task: mockgen:source
+        vars: {SOURCE_FILE: notes-service/repository/repository.go}
+
+  mockgen:reflect:
+    desc: Generate a mock for an interface using reflect mode
+    generates:
+      - mocks/{{.DESTINATION_FILE}}
+    cmds:
+      - mockgen -destination=mocks/{{.DESTINATION_FILE}} -package=mocks {{.SOURCE_FILE}} {{.INTERFACE}}
+
+  mockgen:source:
+    desc: Generate a mock for an interface
+    generates:
+      - mocks/{{.DESTINATION_FILE}}
+    cmds:
+      - mockgen -source={{.SOURCE_FILE}} -destination="mocks/{{.SOURCE_FILE}}"
+
+  mockgen:
+    desc: Generate a mock for an interface
+    generates:
+      - mocks/{{.DESTINATION_FILE}}
+    cmds:
+      - mockgen -destination=mocks/{{.DESTINATION_FILE}} -package=mocks {{.SOURCE_FILE}} {{.INTERFACE}}
+
+  wires:
+    desc: Generate all the necessary dependency injection
+    deps:
+      - task: wire
+        vars: {WIRE_PACKAGE: '{{.SELF}}/lambda/appsync' }
+
+  wire:
+    desc: Generate the dependency injection from the Wire file
+    sources:
+      - '*/**.go'
+    generates:
+      - '{{.WIRE_PACKAGE}}/wire_gen.go'
+    cmds:
+      - wire {{.WIRE_PACKAGE}}
+    method: checksum
+
+  build-golang-lambda:
+    desc: Build the golambda
+    sources:
+      - '*/**.go'
+    generates:
+      - '{{.GOBIN}}/{{.DESTINATION_FILE}}'
+    cmds:
+      - GOARCH=amd64 GOOS=linux GOBIN={{.GOBIN}} go build {{.LDFLAGS}} -o {{.GOBIN}}/{{.DESTINATION_FILE}} {{.SELF}}/{{.SOURCE_PACKAGE}}
+
+  build:
+    desc: Build the assets
+    deps: [wires]
+    sources:
+      - '*/**.go'
+    cmds:
+      - task: build-golang-lambda
+        vars: {DESTINATION_FILE: lambda/appsync, SOURCE_PACKAGE: lambda/appsync}
+
+  synth-local:
+    desc: Validate and synthetise deployment infrastructure
+    cmds:
+      - circleci config validate
+      - task: synth
+
+  synth:
+    desc: Synthetise deployment infrastructure
+    dir: stack
+    cmds:
+      - npm install
+      - npm run lint
+      - npm run test
+      - npm run build
+      - npm run cdk bootstrap
+      - npm run cdk synth
+
+  deploy:
+    desc: Deploy the synthetised infrastructure
+    dir: stack
+    cmds:
+      - npm run cdk deploy
+
+  deploy-pipeline:
+    desc: Execute full deploy pipeline
+    cmds:
+      - task: synth
+      - task: deploy
+
+
+#version: '2'
+#
+#silent: true
+#
+#vars:
+#  BUILD:
+#    sh: git rev-parse --short HEAD
+#  GOBIN: cmd
+#  LDFLAGS: -ldflags "-X=main.Version={{.BUILD}} -X=main.Build={{.BUILD}}"
+#  SELF: "Stack"
+#
+#tasks:
+#  default:
+#    cmds:
+#      - task: build
+#
+#  install:
+#    desc: Install all of the Go dependencies and set up your enviroment
+#    deps: [binary-dependencies]
+#    cmds:
+#      - go env -w GOPRIVATE=github.com/geoffLondon
+#
+#  binary-dependencies:
+#    desc: Install Go binary dependencies
+#    cmds:
+#      - task: go-get
+#        vars: {REPO: github.com/google/wire/cmd/wire}
+#      - task: go-get
+#        vars: {REPO: github.com/onsi/ginkgo/ginkgo}
+#      - task: go-get
+#        vars: {REPO: github.com/onsi/gomega/...}
+#      - task: go-get
+#        vars: {REPO: github.com/golang/mock/mockgen}
+#
+#  go-get:
+#    desc: Execute go-get against a certain repo
+#    cmds:
+#      - go get {{.REPO}}
+#
+#  test:unit:
+#    desc: Execute all the unit tests
+#    deps: [wires, mocks]
+#    sources:
+#      - '*/**.go'
+#      - 'wire.go'
+#    cmds:
+#      - ginkgo -r -tags unit
+#
+#  test:
+#    cmds:
+#      - task: test:unit
+#
+#  mocks:
+#    desc: Generate all the mocks needed for the tests
+#    cmds:
+#      - if [ -d mocks ]; then rm -r mocks; fi
+#
+#  mockgen:reflect:
+#    desc: Generate a mock for an interface using reflect mode
+#    generates:
+#      - mocks/{{.DESTINATION_FILE}}
+#    cmds:
+#      - mockgen -destination=mocks/{{.DESTINATION_FILE}} -package=mocks {{.SOURCE_FILE}} {{.INTERFACE}}
+#
+#  mockgen:source:
+#    desc: Generate a mock for an interface
+#    generates:
+#      - mocks/{{.DESTINATION_FILE}}
+#    cmds:
+#      - mockgen -source={{.SOURCE_FILE}} -destination="mocks/{{.SOURCE_FILE}}"
+#
+#  mockgen:
+#    desc: Generate a mock for an interface
+#    generates:
+#      - mocks/{{.DESTINATION_FILE}}
+#    cmds:
+#      - mockgen -destination=mocks/{{.DESTINATION_FILE}} -package=mocks {{.SOURCE_FILE}} {{.INTERFACE}}
+#
+#  wires:
+#    desc: Generate all the necessary dependency injection
+#    deps:
+#      - task: wire
+#        vars: {WIRE_PACKAGE: '{{.SELF}}/lambda/appsync' }
+#
+#  wire:
+#    desc: Generate the dependency injection from the Wire file
+#    sources:
+#      - '*/**.go'
+#    generates:
+#      - '{{.WIRE_PACKAGE}}/wire_gen.go'
+#    cmds:
+#      - wire {{.WIRE_PACKAGE}}
+#    method: checksum
+#
+#  build-executable:
+#    desc: Build the executable
+#    deps:
+#      - task: wire
+#        vars: { WIRE_PACKAGE: './{{.SOURCE_PACKAGE}}' }
+#    sources:
+#      - '*/**.go'
+#    generates:
+#      - '{{.GOBIN}}/{{.DESTINATION_FILE}}'
+#    cmds:
+#      - GOARCH=amd64 GOOS=linux GOBIN={{.GOBIN}} go build {{.LDFLAGS}} -o {{.GOBIN}}/{{.DESTINATION_FILE}} {{.SELF}}/{{.SOURCE_PACKAGE}}
+#    method: checksum
+#
+#  build:
+#    desc: Build the assets
+#    sources:
+#      - '*/**.go'
+#    deps:
+#      - task: build-executable
+#        vars: { DESTINATION_FILE: lambda/appsync, SOURCE_PACKAGE: lambda/appsync }
+#
+#  synth-local:
+#    desc: Validate and synthetise deployment infrastructure
+#    cmds:
+#      - task: synth
+#
+#  synth:
+#    desc: Synthetise deployment infrastructure
+#    dir: stack
+#    cmds:
+#      - npm install
+#      - npm run lint
+#      - npm run test
+#      - npm run build
+#      - npm run cdk bootstrap
+#      - npm run cdk synth
+#
+#  deploy:
+#    desc: Deploy the synthetised infrastructure
+#    dir: stack
+#    cmds:
+#      - npm run cdk deploy
+#
+#  deploy-pipeline:
+#    desc: Execute full deploy pipeline
+#    cmds:
+#      - task: synth
+#      - task: deploy

@@ -1,0 +1,73 @@
+{
+  "name": "cdk-notes-api",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geoffLondon/cdk-notes-api"
+  },
+  "license": "UNLICENSED",
+  "bin": {
+    "protect-call-flow-service": "stack/cmd/stack.js"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": false,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "es5",
+    "arrowParens": "always"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk",
+    "lint": "prettier --check **/*.ts",
+    "lint:fix": "prettier --write **/*.ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.5",
+    "@types/node": "14.0.24",
+    "aws-cdk": "^1.76.0",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "ts-jest": "^26.1.3",
+    "ts-node": "^8.10.2",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-appsync": "^1.76.0",
+    "@aws-cdk/aws-cognito": "^1.76.0",
+    "@aws-cdk/aws-events": "^1.76.0",
+    "@aws-cdk/aws-dynamodb": "^1.76.0",
+    "@aws-cdk/aws-events-targets": "^1.76.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.76.0",
+    "@aws-cdk/aws-lambda": "^1.76.0",
+    "@aws-cdk/core": "^1.76.0",
+    "@aws-cdk/aws-cloudwatch-actions": "^1.76.0",
+    "@aws-cdk/aws-synthetics": "^1.76.0",
+    "@aws-cdk/aws-ssm": "^1.76.0",
+    "source-map-support": "^0.5.19"
+  }
+}
