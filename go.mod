@@ -1,4 +1,4 @@
-module cdk-notes-api
+module github.com/geoffLondon/cdk-notes-api
 
 go 1.15
 

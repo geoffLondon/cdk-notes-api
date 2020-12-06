@@ -1,9 +1,9 @@
 package service_resolver
 
 import (
-	service_repository "cdk-notes-api/notes-service/repository"
-	"cdk-notes-api/uuid"
 	"context"
+	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
+	"github.com/geoffLondon/cdk-notes-api/uuid"
 	log "github.com/sirupsen/logrus"
 )
 

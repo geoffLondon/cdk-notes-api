@@ -10,7 +10,7 @@ const app = new cdk.App()
 
 const stage = process.env.STAGE || 'development'
 const team = 'personal'
-const stackName = 'geoff-notes-api'
+const stackName = 'cdk-notes-api'
 const description = 'A note taking application using AWS-CDK. (GG)'
 
 const config = NewConfig(stage)

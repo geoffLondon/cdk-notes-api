@@ -1,7 +1,7 @@
 package aws_dynamodb
 
 import (
-	"cdk-notes-api/configuration"
+	"github.com/geoffLondon/cdk-notes-api/configuration"
 	"github.com/guregu/dynamo"
 )
 

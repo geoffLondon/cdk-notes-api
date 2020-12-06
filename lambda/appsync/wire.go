@@ -3,13 +3,13 @@
 package main
 
 import (
+	aws_config "github.com/geoffLondon/cdk-notes-api/aws"
+	aws_dynamodb "github.com/geoffLondon/cdk-notes-api/aws/dynamodb"
+	"github.com/geoffLondon/cdk-notes-api/configuration"
+	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
+	"github.com/geoffLondon/cdk-notes-api/resolver/service"
+	"github.com/geoffLondon/cdk-notes-api/uuid"
 	"github.com/google/wire"
-	aws_config "cdk-notes-api/aws"
-	aws_dynamodb "cdk-notes-api/aws/dynamodb"
-	"cdk-notes-api/configuration"
-	service_repository "cdk-notes-api/notes-service/repository"
-	"cdk-notes-api/resolver/service"
-	"cdk-notes-api/uuid"
 )
 
 var Set = wire.NewSet(

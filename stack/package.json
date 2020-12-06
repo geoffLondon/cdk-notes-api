@@ -7,7 +7,7 @@
   },
   "license": "UNLICENSED",
   "bin": {
-    "protect-call-flow-service": "stack/cmd/stack.js"
+    "cdk-notes-api": "stack/cmd/stack.js"
   },
   "jest": {
     "moduleFileExtensions": [

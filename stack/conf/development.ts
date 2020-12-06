@@ -1,7 +1,7 @@
-import { DiscoApiStackConfig } from '../lib/disco-api-stack-config'
+import { Config } from '../lib/config'
 
-export const DevelopmentConfig: DiscoApiStackConfig = {
+export const DevelopmentStackConfig: Config = {
     stage: 'development',
     environment: 'dev',
-    s3DiscoApiMessagesBucketName: 'disco-api-messages-development',
+    smartnumbersUserPoolId: 'eu-west-2_VL9CgrVPk',
 }

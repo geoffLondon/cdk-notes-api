@@ -1,4 +1,4 @@
-import { DevelopmentConfig } from '../conf/development'
+import { DevelopmentStackConfig } from '../conf/development'
 
 export interface StaticConfig {
     parameterName: string
@@ -14,8 +14,8 @@ export interface Config {
 export const NewConfig = (stage: string): Config => {
     switch (stage) {
         case 'development':
-            return DevelopmentConfig
+            return DevelopmentStackConfig
         default:
-            return DevelopmentConfig
+            return DevelopmentStackConfig
     }
 }

@@ -7,7 +7,7 @@ vars:
     sh: git rev-parse --short HEAD
   GOBIN: bin
   LDFLAGS: -ldflags "-X=main.Version={{.BUILD}} -X=main.Build={{.BUILD}}"
-  SELF: "cdk-notes-api"
+  SELF: "github.com/geoffLondon/cdk-notes-api"
 
 tasks:
   default:
@@ -136,7 +136,7 @@ tasks:
   synth-local:
     desc: Validate and synthetise deployment infrastructure
     cmds:
-      - circleci config validate
+      #- circleci config validate
       - task: synth
 
   synth:

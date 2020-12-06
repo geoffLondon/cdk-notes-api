@@ -16,17 +16,17 @@ export const AppSync = (stack: Construct, props: Props, lambdaDataSource: lambda
         schema: appSync.Schema.fromAsset('../schema.graphql'),
         authorizationConfig: {
             defaultAuthorization: {
-                authorizationType: appSync.AuthorizationType.API_KEY,
-                apiKeyConfig: {
-                    expires: Expiration.after(Duration.days(365))
-                }
-            },
-            additionalAuthorizationModes: [{
                 authorizationType: appSync.AuthorizationType.USER_POOL,
                 userPoolConfig: {
                     userPool: cognito.UserPool.fromUserPoolId(stack, "smartnumber-user-pool", props.config.smartnumbersUserPoolId)
                 }
-            }]
+            },
+/*            additionalAuthorizationModes: [{
+                authorizationType: appSync.AuthorizationType.USER_POOL,
+                userPoolConfig: {
+                    userPool: cognito.UserPool.fromUserPoolId(stack, "smartnumber-user-pool", props.config.smartnumbersUserPoolId)
+                }
+            }]*/
         },
         xrayEnabled: true
     })

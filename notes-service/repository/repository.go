@@ -1,13 +1,9 @@
 package repository
-import (
-	aws_dynamodb "cdk-notes-api/aws/dynamodb"
-	"context"
-	log "github.com/sirupsen/logrus"
-)
 
-const (
-	PkKey                  = "pk"
-	AcumaticaCustomerIdKey = "acumaticaCustomerId"
+import (
+	"context"
+	aws_dynamodb "github.com/geoffLondon/cdk-notes-api/aws/dynamodb"
+	log "github.com/sirupsen/logrus"
 )
 
 type ServiceRepository interface {
