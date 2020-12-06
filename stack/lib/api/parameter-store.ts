@@ -6,7 +6,6 @@ export const ParameterStore = (stack: Construct, props: Props, graphqlUrl: strin
 
     const serviceParams = JSON.stringify({
         version: '2020.11.16',
-        needSmartnumbers: false,
         graphQlEndpoint: graphqlUrl
     })
 

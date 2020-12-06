@@ -41,16 +41,15 @@ export const AppSync = (stack: Construct, props: Props, lambdaDataSource: lambda
         value: api.apiKey || ''
     })
 
-/*    const dataSource = api.addLambdaDataSource('LAMBDA', lambdaDataSource, {
+    const dataSource = api.addLambdaDataSource('LAMBDA', lambdaDataSource, {
         description: 'The lambda supporting the GraphQL API',
     })
 
     dataSource.createResolver({
-        typeName: 'Query',
-        fieldName: 'getService',
-        requestMappingTemplate: appSync.MappingTemplate.fromFile('templates/getService.vtl'),
+        typeName: 'Mutation',
+        fieldName: 'createNote',
+        requestMappingTemplate: appSync.MappingTemplate.fromFile('templates/createNote.vtl'),
         responseMappingTemplate: appSync.MappingTemplate.fromFile('templates/to-json.vtl'),
     })
-    */
     return api
 }
