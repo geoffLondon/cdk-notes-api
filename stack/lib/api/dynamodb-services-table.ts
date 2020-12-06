@@ -5,7 +5,7 @@ import {Props} from "../props"
 export const DynamodbServicesTable = (stack: Construct, props: Props): dynamodb.ITable => {
     return new dynamodb.Table(stack, props.staticConfig.geoffCdkNotesTableName, {
         tableName: props.staticConfig.geoffCdkNotesTableName,
-        partitionKey: {name: 'pk', type: dynamodb.AttributeType.STRING},
+        partitionKey: {name: 'id', type: dynamodb.AttributeType.STRING},
         billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     })
 }
