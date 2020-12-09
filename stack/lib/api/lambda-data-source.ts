@@ -17,6 +17,7 @@ export const LambdaDataSource = (scope: Construct, props: Props): lambda.IFuncti
         runtime: lambda.Runtime.GO_1_X,
         timeout: Duration.seconds(30),
         code: lambda.Code.fromAsset('../bin/lambda', {exclude: ['**', '!appsync']}),
+        memorySize: 1024,
         handler: 'appsync',
         tracing: lambda.Tracing.ACTIVE,
         environment: environment,

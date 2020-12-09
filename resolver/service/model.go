@@ -7,3 +7,29 @@ type CallFlowService struct {
 }
 
 type ServiceParameters struct{}
+
+//todo from schema
+// createNote(note: NoteInput!): Note
+// createNote(params: CreateNoteParams!): ID! @aws_auth(cognito_groups: ["SmartnumbersAdmin"])
+
+/*defaultAuthorization: {
+authorizationType: appSync.AuthorizationType.API_KEY,
+apiKeyConfig: {
+expires: Expiration.after(Duration.days(365))
+}
+},*/
+
+/*type Subscription getNotes {
+onCreatedNote: Note
+@aws_subscribe(mutations: ["createNote"])
+}*/
+
+/*input NoteInput {
+id: ID!
+name: String!
+completed: Boolean!
+}
+*/
+
+// todo cdk-notes-api.GraphQLApiUrl
+//  https://7yadc4ugyvfy7oyxmc5b5nv5rq.appsync-api.eu-west-2.amazonaws.com/graphql

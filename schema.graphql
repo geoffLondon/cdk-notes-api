@@ -5,9 +5,9 @@ type Note {
 }
 
 input NoteInput {
-  id: ID!
-  name: String!
-  completed: Boolean!
+id: ID!
+name: String!
+completed: Boolean!
 }
 
 type Query {
@@ -16,10 +16,4 @@ type Query {
 
 type Mutation {
   createNote(note: NoteInput!): Note
-  createNote(params: CreateNoteParams!): ID! @aws_auth(cognito_groups: ["SmartnumbersAdmin"])
-}
-
-type Subscription getNotes {
-  onCreatedNote: Note
-    @aws_subscribe(mutations: ["createNote"])
 }

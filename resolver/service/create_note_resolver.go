@@ -8,9 +8,10 @@ import (
 )
 
 type CreateNoteParams struct {
-	Id        string `json:"id"`
-	Name      string `json:"name"`
-	Completed bool   `json:"completed"`
+	Id        string            `json:"id"`
+	Name      string            `json:"name"`
+	Completed bool              `json:"completed"`
+	Params    ServiceParameters `json:"-"`
 }
 
 type CreateNoteResolver interface {
