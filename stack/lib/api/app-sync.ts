@@ -39,17 +39,18 @@ export const AppSync = (stack: Construct, props: Props, lambdaDataSource: lambda
     })
 
     dataSource.createResolver({
+        typeName: 'Mutation',
+        fieldName: 'createNote',
+        requestMappingTemplate: appSync.MappingTemplate.fromFile('templates/createNote.vtl'),
+        responseMappingTemplate: appSync.MappingTemplate.fromFile('templates/to-json.vtl'),
+    })
+
+    dataSource.createResolver({
         typeName: 'Query',
         fieldName: 'listNotes',
         requestMappingTemplate: appSync.MappingTemplate.fromFile('templates/listNotes.vtl'),
         responseMappingTemplate: appSync.MappingTemplate.fromFile('templates/to-json.vtl'),
     })
 
-    dataSource.createResolver({
-        typeName: 'Mutation',
-        fieldName: 'createNote',
-        requestMappingTemplate: appSync.MappingTemplate.fromFile('templates/createNote.vtl'),
-        responseMappingTemplate: appSync.MappingTemplate.fromFile('templates/to-json.vtl'),
-    })
     return api
 }

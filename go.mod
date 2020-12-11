@@ -6,7 +6,7 @@ require (
 	github.com/aws/aws-lambda-go v1.20.0
 	github.com/aws/aws-sdk-go v1.35.17
 	github.com/aws/aws-xray-sdk-go v1.1.0
-	github.com/geoffLondon/appsync-resolvers v0.3.2
+	github.com/geoffLondon/appsync-resolvers v0.3.3
 	github.com/golang/mock v1.3.1
 	github.com/google/uuid v1.1.2
 	github.com/google/wire v0.4.0

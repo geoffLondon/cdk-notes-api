@@ -23,7 +23,7 @@ func (container DefaultContainer) Resolver() resolvers.Repository {
 
 	for resolver, handler := range resolversMap {
 		if err := repository.Add(resolver, handler); err != nil {
-			log.WithField("err", err).Warn("error add resolver to repository")
+			log.WithField("err", err).Warn("error adding resolver to repository")
 		}
 	}
 

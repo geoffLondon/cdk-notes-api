@@ -18,8 +18,6 @@ type CreateNoteResolver interface {
 	Handle(context.Context, CreateNoteParams) (string, error)
 }
 
-//TODO "err": "Resolver must not have more than one argument, got 2", LOOK AT REMOVING CONTEXT
-
 type DefaultCreateNoteResolver struct {
 	serviceRepository service_repository.ServiceRepository
 	uuidGenerator     uuid.UuidGenerator
