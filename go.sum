@@ -54,8 +54,8 @@ github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5Kwzbycv
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=
-github.com/geoffLondon/appsync-resolvers v0.3.1 h1:rGXEdQ3YpaWj1l1Yqs3asnWLyqTAO9KXpuMqciwF+O4=
-github.com/geoffLondon/appsync-resolvers v0.3.1/go.mod h1:e+eI5I0BqRDzubzfYzF6h8T3U6Hdf6KrVMo9YHPWf74=
+github.com/geoffLondon/appsync-resolvers v0.3.2 h1:DaeVSfz6C0d8MHbL/mIX/I4xt0DlYmI5uFi7YjVkcJg=
+github.com/geoffLondon/appsync-resolvers v0.3.2/go.mod h1:e+eI5I0BqRDzubzfYzF6h8T3U6Hdf6KrVMo9YHPWf74=
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
 github.com/go-gl/glfw v0.0.0-20190409004039-e6da0acd62b1/go.mod h1:vR7hzQXu2zJy9AVAgeJqvqgH9Q5CA+iKCZ2gyEVpxRU=
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
@@ -199,9 +199,6 @@ github.com/prometheus/common v0.4.0/go.mod h1:TNfzLD0ON7rHzMJeJkieUDPYmFC7Snx/y8
 github.com/prometheus/procfs v0.0.0-20181005140218-185b4288413d/go.mod h1:c3At6R/oaqEKCNdg8wHV1ftS6bRYblBhIjjI8uT2IGk=
 github.com/prometheus/procfs v0.0.0-20190507164030-5867b95ac084/go.mod h1:TjEm7ze935MbeOT/UhFTIMYKhuLP4wbCsTZCD3I8kEA=
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
-github.com/resilientplc/appsync-resolvers v1.0.4/go.mod h1:iypLF/lW0AoVpcK3agMHs7SBHaV6Vj7oIQ7r6pv4knY=
-github.com/resilientplc/protect-call-flow-service v0.0.0-20201123151301-e53a7c36a285 h1:0kGIWbalRJhc7BMbYRXyOPzpvl3i+poF14H0xretZno=
-github.com/resilientplc/protect-call-flow-service v0.0.0-20201123151301-e53a7c36a285/go.mod h1:aVQlhYJDtnDgAE3C/DvMXvUIGrrBNSRDt3g1iWZJYi0=
 github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6SoW27p1b0cqNHllgS5HIMJraePCO15w5zCzIWYg=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=

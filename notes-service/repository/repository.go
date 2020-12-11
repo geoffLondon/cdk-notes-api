@@ -23,3 +23,5 @@ func (repo *DynamoServiceRepository) Save(ctx context.Context, service NotesServ
 
 	return repo.dynamoDbClient.Put(ctx, &service)
 }
+
+// TODO need to add Get() function
