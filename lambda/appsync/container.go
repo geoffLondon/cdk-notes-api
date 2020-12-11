@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/geoffLondon/appsync-resolvers"
+	"github.com/geoffLondon/aws-appsync-resolvers"
 	service_resolver "github.com/geoffLondon/cdk-notes-api/resolver/service"
 	log "github.com/sirupsen/logrus"
 )

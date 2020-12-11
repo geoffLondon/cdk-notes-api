@@ -32,4 +32,4 @@ completed: Boolean!
 */
 
 // todo cdk-notes-api.GraphQLApiUrl
-//  https://7yadc4ugyvfy7oyxmc5b5nv5rq.appsync-api.eu-west-2.amazonaws.com/graphql
+//  https://66woz4ecqvhe3nio5zibfpifhm.appsync-api.eu-west-2.amazonaws.com/graphql
