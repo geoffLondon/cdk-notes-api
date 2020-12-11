@@ -1,19 +1,21 @@
 type Note {
-  id: ID!
-  name: String!
-  completed: Boolean!
+    id: ID!
+    name: String!
+    completed: Boolean!
+    params: AWSJSON!
 }
 
 input NoteInput {
-id: ID!
-name: String!
-completed: Boolean!
+    id: ID!
+    name: String!
+    completed: Boolean!
+    params: AWSJSON!
 }
 
 type Query {
-  listNotes: [Note]
+    listNotes: [Note]
 }
 
 type Mutation {
-  createNote(note: NoteInput!): Note
+    createNote(params: NoteInput!): Note
 }
