@@ -45,12 +45,12 @@ export const AppSync = (stack: Construct, props: Props, lambdaDataSource: lambda
         responseMappingTemplate: appSync.MappingTemplate.fromFile('templates/to-json.vtl'),
     })
 
-    dataSource.createResolver({
+/*    dataSource.createResolver({
         typeName: 'Query',
         fieldName: 'listNotes',
         requestMappingTemplate: appSync.MappingTemplate.fromFile('templates/listNotes.vtl'),
         responseMappingTemplate: appSync.MappingTemplate.fromFile('templates/to-json.vtl'),
-    })
+    })*/
 
     return api
 }
