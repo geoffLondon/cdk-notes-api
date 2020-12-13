@@ -3,7 +3,7 @@ package service_resolver
 import (
 	"context"
 	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
-	"github.com/geoffLondon/cdk-notes-api/uuid"
+	//"github.com/geoffLondon/cdk-notes-api/uuid"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -19,25 +19,26 @@ type CreateNoteResolver interface {
 
 type DefaultCreateNoteResolver struct {
 	serviceRepository service_repository.ServiceRepository
-	uuidGenerator     uuid.UuidGenerator
+	//uuidGenerator     uuid.UuidGenerator
 }
 
-func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRepository, uuidGenerator uuid.UuidGenerator) *DefaultCreateNoteResolver {
-	return &DefaultCreateNoteResolver{serviceRepository: serviceRepository, uuidGenerator: uuidGenerator}
+func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRepository) *DefaultCreateNoteResolver {
+	return &DefaultCreateNoteResolver{serviceRepository: serviceRepository}
 }
 
-func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, params CreateNoteParams) (string, error) {
-	log.WithFields(log.Fields{"ctx": ctx, "params": params}).Info("request received")
+func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, createNoteParams CreateNoteParams) (string, error) {
+	log.WithFields(log.Fields{"ctx": ctx, "createNoteParams": createNoteParams}).Info("request received")
 
-	if err := params.validate(); err != nil {
-		log.WithFields(log.Fields{"params": params, "err": err}).Warn("failed validating inputs")
+	if err := createNoteParams.validate(); err != nil {
+		log.WithFields(log.Fields{"createNoteParams": createNoteParams, "err": err}).Warn("failed validating inputs")
 		return "", err
 	}
 
 	service := service_repository.NotesService{
-		Id:        resolver.uuidGenerator.New(),
-		Name:      params.Name,
-		Completed: params.Completed,
+		//Id:        resolver.uuidGenerator.New(),
+		Id:        createNoteParams.Id,
+		Name:      createNoteParams.Name,
+		Completed: createNoteParams.Completed,
 	}
 
 	if err := resolver.serviceRepository.Save(ctx, service); err != nil {
@@ -48,14 +49,14 @@ func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, params Cre
 	return service.Id, nil
 }
 
-func (params CreateNoteParams) validate() error {
-	if params.Id == "" {
+func (createNoteParams CreateNoteParams) validate() error {
+	if createNoteParams.Id == "" {
 		return ErrMissingId
 	}
-	if params.Name == "" {
+	if createNoteParams.Name == "" {
 		return ErrMissingName
 	}
-	if params.Completed == false {
+	if createNoteParams.Completed == false {
 		return ErrMissingCompleted
 	}
 

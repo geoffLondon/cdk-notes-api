@@ -3,7 +3,7 @@ package service_resolver
 import "errors"
 
 var (
-	ErrMissingId        = errors.New("note id missing, oops")
-	ErrMissingName      = errors.New("service name missing")
+	ErrMissingId        = errors.New("note id missing, ffs")
+	ErrMissingName      = errors.New("note name missing")
 	ErrMissingCompleted = errors.New("completed missing")
 )

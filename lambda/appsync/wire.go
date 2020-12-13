@@ -8,7 +8,6 @@ import (
 	"github.com/geoffLondon/cdk-notes-api/configuration"
 	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
 	"github.com/geoffLondon/cdk-notes-api/resolver/service"
-	"github.com/geoffLondon/cdk-notes-api/uuid"
 	"github.com/google/wire"
 )
 
@@ -31,8 +30,8 @@ var Set = wire.NewSet(
 	service_repository.NewDynamoServiceRepository,
 	wire.Bind(new(service_repository.ServiceRepository), new(*service_repository.DynamoServiceRepository)),
 
-	uuid.NewDefaultUuidGenerator,
-	wire.Bind(new(uuid.UuidGenerator), new(*uuid.DefaultUuidGenerator)),
+/*	uuid.NewDefaultUuidGenerator,
+	wire.Bind(new(uuid.UuidGenerator), new(*uuid.DefaultUuidGenerator)),*/
 )
 
 func InitializeAppsyncContainer() (Container, error) {

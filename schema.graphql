@@ -1,11 +1,11 @@
 type Note {
-    id: ID!
+    id: String!
     name: String!
     completed: Boolean!
 }
 
 input NoteInput {
-    id: ID!
+    id: String!
     name: String!
     completed: Boolean!
 }
