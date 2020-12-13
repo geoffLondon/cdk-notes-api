@@ -1,6 +1,6 @@
 package service_resolver
 
-type CallFlowService struct {
+type NotesService struct {
 	Id        string `json:"id"`
 	Name      string `json:"name"`
 	Completed bool   `json:"completed"`
@@ -8,28 +8,8 @@ type CallFlowService struct {
 
 type ServiceParameters struct{}
 
-//todo from schema
-// createNote(note: NoteInput!): Note
-// createNote(params: CreateNoteParams!): ID! @aws_auth(cognito_groups: ["SmartnumbersAdmin"])
-
-/*defaultAuthorization: {
-authorizationType: appSync.AuthorizationType.API_KEY,
-apiKeyConfig: {
-expires: Expiration.after(Duration.days(365))
-}
-},*/
-
-/*type Subscription getNotes {
-onCreatedNote: Note
-@aws_subscribe(mutations: ["createNote"])
-}*/
-
-/*input NoteInput {
-id: ID!
-name: String!
-completed: Boolean!
-}
+/**
+TODO
+ cdk-notes-api.GraphQLApiUrl
+ https://exzqcxlq75dt3appoeg2266gbi.appsync-api.eu-west-2.amazonaws.com/graphql
 */
-
-// todo cdk-notes-api.GraphQLApiUrl
-// https://exzqcxlq75dt3appoeg2266gbi.appsync-api.eu-west-2.amazonaws.com/graphql

@@ -7,14 +7,14 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type CreateNoteResolver interface {
-	Handle(context.Context, CreateNoteParams) (string, error)
-}
-
 type CreateNoteParams struct {
 	Id        string `json:"id"`
 	Name      string `json:"name"`
 	Completed bool   `json:"completed"`
+}
+
+type CreateNoteResolver interface {
+	Handle(context.Context, CreateNoteParams) (string, error)
 }
 
 type DefaultCreateNoteResolver struct {

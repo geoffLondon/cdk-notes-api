@@ -13,29 +13,24 @@ import (
 )
 
 var Set = wire.NewSet(
-	// Configuration
 	configuration.NewConfig,
 
-	// AWS clients & resources
 	aws_config.NewAwsConfig,
 
 	aws_dynamodb.NewDynamoDBFromConfig,
-	aws_dynamodb.NewDynamoCallFlowServiceTable,
+	aws_dynamodb.NewDynamoNotesServiceTable,
 	aws_dynamodb.NewDefaultDynamoDbClient,
 	wire.Bind(new(aws_dynamodb.DynamoDbClient), new(*aws_dynamodb.DefaultDynamoDbClient)),
 
-	// Container and resolvers
 	wire.Struct(new(DefaultContainer), "*"),
 	wire.Bind(new(Container), new(DefaultContainer)),
 
 	service_resolver.NewDefaultCreateNoteResolver,
 	wire.Bind(new(service_resolver.CreateNoteResolver), new(*service_resolver.DefaultCreateNoteResolver)),
 
-	// Repos
 	service_repository.NewDynamoServiceRepository,
 	wire.Bind(new(service_repository.ServiceRepository), new(*service_repository.DynamoServiceRepository)),
 
-	//	Services
 	uuid.NewDefaultUuidGenerator,
 	wire.Bind(new(uuid.UuidGenerator), new(*uuid.DefaultUuidGenerator)),
 )

@@ -1,5 +1,5 @@
 type Note {
-    id: String!
+    id: ID!
     name: String!
     completed: Boolean!
 }
