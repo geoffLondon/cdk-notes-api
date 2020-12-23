@@ -11,5 +11,5 @@ type ServiceParameters struct{}
 /**
 TODO
  cdk-notes-api.GraphQLApiUrl
- https://exzqcxlq75dt3appoeg2266gbi.appsync-api.eu-west-2.amazonaws.com/graphql
+ https://jrtqqn36pzbelfdirfir4ttjny.appsync-api.eu-west-2.amazonaws.com/graphql
 */

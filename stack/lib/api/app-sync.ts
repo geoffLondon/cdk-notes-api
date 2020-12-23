@@ -5,7 +5,7 @@ import {Name} from '../../utils/resource-name'
 import {Props} from '../props'
 
 export const AppSync = (stack: Construct, props: Props, lambdaDataSource: lambda.IFunction) => {
-    const name = Name(props, 'api')
+    const name = Name(props, 'GG')
 
     const api = new appSync.GraphqlApi(stack, name, {
         name: name,
