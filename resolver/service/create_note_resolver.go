@@ -41,7 +41,7 @@ func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, createNote
 		Completed: createNoteParams.Completed,
 	}
 
-	log.WithFields(log.Fields{"=======serviceId========": service.Id, "=======serviceName========": service.Name, "=======serviceCompleted========": service.Completed, "=======service========": service}).Warn("NotesService")
+	log.WithFields(log.Fields{"=======serviceId========": service.Id, "=======serviceName========": service.Name, "=======serviceCompleted========": service.Completed, "=======service========": service}).Info("NotesService")
 
 	if err := resolver.serviceRepository.Save(ctx, service); err != nil {
 		log.WithFields(log.Fields{"service": service, "err": err}).Warn("failed saving service")
