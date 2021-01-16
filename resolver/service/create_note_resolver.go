@@ -27,7 +27,7 @@ func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRe
 }
 
 func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, createNoteParams CreateNoteParams) (string, error) {
-	log.WithFields(log.Fields{"ctx": ctx, "createNoteParams": createNoteParams}).Info("request received")
+	log.WithFields(log.Fields{"createNoteParamsId": createNoteParams.Id, "createNoteParamsName": createNoteParams.Name}).Info("request received")
 
 	if err := createNoteParams.validate(); err != nil {
 		log.WithFields(log.Fields{"createNoteParams": createNoteParams, "err": err}).Warn("failed validating inputs")

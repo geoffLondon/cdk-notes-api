@@ -17,20 +17,16 @@ type DefaultContainer struct {
 func (container DefaultContainer) Resolver() resolvers.Repository {
 	repository := resolvers.New()
 
-	if err := repository.Add("mutation.createNote", container.CreateNoteResolver.Handle); err != nil {
-		log.WithField("err", err).Warn("error adding resolver to repository")
+	resolversMap := map[string]interface{}{
+		"mutation.createNote": container.CreateNoteResolver.Handle,
 	}
 
-	/*	resolversMap := map[string]interface{}{
-			"mutation.createNote": container.CreateNoteResolver.Handle,
+	for resolver, handler := range resolversMap {
+		if err := repository.Add(resolver, handler); err != nil {
+			log.WithField("err", err).Warn("error adding resolver to repository")
 		}
-
-		for resolver, handler := range resolversMap {
-			if err := repository.Add(resolver, handler); err != nil {
-				log.WithField("err", err).Warn("error adding resolver to repository")
-			}
-			log.WithField("resolver", resolver).Warn("resolver added to repository")
-		}*/
+		log.WithField("resolver", resolver).Info("resolver added to repository")
+	}
 
 	return repository
 }

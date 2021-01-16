@@ -6,6 +6,7 @@ import (
 )
 
 type DynamoDbClient interface {
+	TableName() string
 	Put(ctx context.Context, data interface{}) error
 }
 
@@ -14,7 +15,13 @@ type DefaultDynamoDbClient struct {
 }
 
 func NewDefaultDynamoDbClient(table dynamo.Table) *DefaultDynamoDbClient {
-	return &DefaultDynamoDbClient{table: table}
+	return &DefaultDynamoDbClient{
+		table: table,
+	}
+}
+
+func (client *DefaultDynamoDbClient) TableName() string {
+	return client.table.Name()
 }
 
 func (client *DefaultDynamoDbClient) Put(ctx context.Context, data interface{}) error {

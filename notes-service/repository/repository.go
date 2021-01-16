@@ -15,13 +15,22 @@ type DynamoServiceRepository struct {
 }
 
 func NewDynamoServiceRepository(dynamoDbClient aws_dynamodb.DynamoDbClient) *DynamoServiceRepository {
-	return &DynamoServiceRepository{dynamoDbClient: dynamoDbClient}
+	return &DynamoServiceRepository{
+		dynamoDbClient: dynamoDbClient,
+	}
 }
 
-func (repo *DynamoServiceRepository) Save(ctx context.Context, service NotesService) error {
-	log.WithFields(log.Fields{"ctx": ctx, "service": service}).Info("Save request")
+func (repo *DynamoServiceRepository) Save(ctx context.Context, notesService NotesService) error {
+	log.WithFields(log.Fields{"service": notesService.Id}).Info("Saving request")
 
-	return repo.dynamoDbClient.Put(ctx, &service)
+	err := repo.dynamoDbClient.Put(ctx, &notesService)
+	if err != nil {
+		log.WithFields(log.Fields{"err": err}).Error("Error writing to Dynamo")
+	} else {
+		log.WithFields(log.Fields{"table": repo.dynamoDbClient.TableName()}).Info("Saved record successfully")
+	}
+
+	return err
 }
 
 // TODO need to add Get() function
