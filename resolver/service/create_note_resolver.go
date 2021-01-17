@@ -3,7 +3,7 @@ package service_resolver
 import (
 	"context"
 	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
-	//"github.com/geoffLondon/cdk-notes-api/uuid"
+	"github.com/geoffLondon/cdk-notes-api/uuid"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -14,13 +14,13 @@ type CreateNoteParams struct {
 }
 
 type CreateNoteResolver interface {
-	Handle(ctx context.Context, noteRequest NoteRequest) (NoteResponse, error)
+	Handle(ctx context.Context, noteRequest NoteRequest) (bool, error)
 }
 
 type DefaultCreateNoteResolver struct {
 	serviceRepository service_repository.ServiceRepository
 	validator         Validator
-	//uuidGenerator     uuid.UuidGenerator
+	uuidGenerator     uuid.UuidGenerator
 }
 
 func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRepository, validator Validator) *DefaultCreateNoteResolver {
@@ -30,37 +30,24 @@ func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRe
 	}
 }
 
-func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, noteRequest NoteRequest) (NoteResponse, error) {
+func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, noteRequest NoteRequest) (bool, error) {
 	log.WithFields(log.Fields{"noteRequest": noteRequest}).Info("note request received!!!")
 
-	/*	if noteRequest.Id == "" {
-		log.WithFields(log.Fields{"noteId": noteRequest.Id}).Warn("note id missing, still!")
-		return "", errors.New("error, missing fields")
-	}*/
-
 	if err := resolver.validator.Validate(noteRequest); err != nil {
-		return NoteResponse{}, err
+		return false, err
 	}
 
 	service := service_repository.NotesService{
-		//Id:        resolver.uuidGenerator.New(),
-		Id:        noteRequest.Id,
+		Id: resolver.uuidGenerator.New(),
+		//Id:        noteRequest.Id,
 		Name:      noteRequest.Name,
 		Completed: noteRequest.Completed,
 	}
 
 	if err := resolver.serviceRepository.Save(ctx, service); err != nil {
 		log.WithFields(log.Fields{"service": service, "err": err}).Warn("failed saving service to db")
-		return NoteResponse{}, err
+		return false, err
 	}
 
-	response := NoteResponse{
-		Note: Note{
-			Id:        service.Id,
-			Name:      service.Name,
-			Completed: service.Completed,
-		},
-	}
-
-	return response, nil
+	return true, nil
 }

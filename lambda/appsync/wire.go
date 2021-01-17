@@ -8,6 +8,7 @@ import (
 	"github.com/geoffLondon/cdk-notes-api/configuration"
 	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
 	"github.com/geoffLondon/cdk-notes-api/resolver/service"
+	"github.com/geoffLondon/cdk-notes-api/uuid"
 	"github.com/google/wire"
 )
 
@@ -33,8 +34,8 @@ var Set = wire.NewSet(
 	service_resolver.NewValidatorImpl,
 	wire.Bind(new(service_resolver.Validator), new(*service_resolver.ValidatorImpl)),
 
-/*	uuid.NewDefaultUuidGenerator,
-	wire.Bind(new(uuid.UuidGenerator), new(*uuid.DefaultUuidGenerator)),*/
+	uuid.NewDefaultUuidGenerator,
+	wire.Bind(new(uuid.UuidGenerator), new(*uuid.DefaultUuidGenerator)),
 )
 
 func InitializeAppsyncContainer() (Container, error) {
