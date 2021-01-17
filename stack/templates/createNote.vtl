@@ -5,7 +5,6 @@
         "resolve": "mutation.createNote",
         "context": {
             "arguments": {
-                "id": "${context.arguments.id}",
                 "name": "${context.arguments.name}",
                 "completed": $util.toJson(${context.arguments.completed}),
             },

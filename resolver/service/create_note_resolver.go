@@ -7,12 +7,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type CreateNoteParams struct {
-	Id        string `json:"id"`
-	Name      string `json:"name"`
-	Completed bool   `json:"completed"`
-}
-
 type CreateNoteResolver interface {
 	Handle(ctx context.Context, noteRequest NoteRequest) (bool, error)
 }
@@ -23,10 +17,11 @@ type DefaultCreateNoteResolver struct {
 	uuidGenerator     uuid.UuidGenerator
 }
 
-func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRepository, validator Validator) *DefaultCreateNoteResolver {
+func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRepository, validator Validator, uuidGenerator uuid.UuidGenerator) *DefaultCreateNoteResolver {
 	return &DefaultCreateNoteResolver{
 		serviceRepository: serviceRepository,
 		validator:         validator,
+		uuidGenerator:     uuidGenerator,
 	}
 }
 
@@ -38,8 +33,7 @@ func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, noteReques
 	}
 
 	service := service_repository.NotesService{
-		Id: resolver.uuidGenerator.New(),
-		//Id:        noteRequest.Id,
+		Id:        resolver.uuidGenerator.New(),
 		Name:      noteRequest.Name,
 		Completed: noteRequest.Completed,
 	}

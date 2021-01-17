@@ -12,9 +12,6 @@ func NewValidatorImpl() *ValidatorImpl {
 }
 
 func (validator ValidatorImpl) Validate(noteRequest NoteRequest) error {
-	if noteRequest.Id == "" {
-		return ErrMissingId
-	}
 	if noteRequest.Name == "" {
 		return ErrMissingName
 	}
