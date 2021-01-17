@@ -6,8 +6,12 @@ type NoteRequest struct {
 	Completed bool   `json:"completed"`
 }
 
-/**
-TODO
- cdk-notes-api.GraphQLApiUrl
- https://jrtqqn36pzbelfdirfir4ttjny.appsync-api.eu-west-2.amazonaws.com/graphql
-*/
+type NoteResponse struct {
+	Note Note `json:"note"`
+}
+
+type Note struct {
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	Completed bool   `json:"completed"`
+}

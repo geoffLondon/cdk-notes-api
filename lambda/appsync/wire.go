@@ -30,6 +30,9 @@ var Set = wire.NewSet(
 	service_repository.NewDynamoServiceRepository,
 	wire.Bind(new(service_repository.ServiceRepository), new(*service_repository.DynamoServiceRepository)),
 
+	service_resolver.NewValidatorImpl,
+	wire.Bind(new(service_resolver.Validator), new(*service_resolver.ValidatorImpl)),
+
 /*	uuid.NewDefaultUuidGenerator,
 	wire.Bind(new(uuid.UuidGenerator), new(*uuid.DefaultUuidGenerator)),*/
 )
