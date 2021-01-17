@@ -14,7 +14,7 @@ type CreateNoteParams struct {
 }
 
 type CreateNoteResolver interface {
-	Handle(context.Context, CreateNoteParams) (string, error)
+	Handle(ctx context.Context, note Note) (string, error)
 }
 
 type DefaultCreateNoteResolver struct {
@@ -26,19 +26,23 @@ func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRe
 	return &DefaultCreateNoteResolver{serviceRepository: serviceRepository}
 }
 
-func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, createNoteParams CreateNoteParams) (string, error) {
-	log.WithFields(log.Fields{"createNoteParams": createNoteParams}).Info("request received")
+func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, note Note) (string, error) {
+	log.WithFields(log.Fields{"note": note}).Info("request received")
 
-	if err := createNoteParams.validate(); err != nil {
-		log.WithFields(log.Fields{"createNoteParams": createNoteParams, "err": err}).Warn("failed validating inputs")
-		return "", err
+	if note.Id == "" {
+		log.WithFields(log.Fields{"noteId": note.Id}).Warn("note id missing, still!")
 	}
+
+	/*	if err := note.validate(); err != nil {
+		log.WithFields(log.Fields{"createNoteParams": note, "err": err}).Warn("failed validating inputs")
+		return "", err
+	}*/
 
 	service := service_repository.NotesService{
 		//Id:        resolver.uuidGenerator.New(),
-		Id:        createNoteParams.Id,
-		Name:      createNoteParams.Name,
-		Completed: createNoteParams.Completed,
+		Id:        note.Id,
+		Name:      note.Name,
+		Completed: note.Completed,
 	}
 
 	log.WithFields(log.Fields{"=======serviceId========": service.Id, "=======serviceName========": service.Name, "=======serviceCompleted========": service.Completed, "=======service========": service}).Info("NotesService")
