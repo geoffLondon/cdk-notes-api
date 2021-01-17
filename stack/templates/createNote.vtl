@@ -7,7 +7,7 @@
             "arguments": {
                 "id": "${context.arguments.id}",
                 "name": "${context.arguments.name}",
-                "completed": "${context.arguments.completed}"
+                "completed": $util.toJson(${context.arguments.completed}),
             },
         }
     }
