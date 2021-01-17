@@ -31,7 +31,7 @@ func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRe
 }
 
 func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, noteRequest NoteRequest) (NoteResponse, error) {
-	log.WithFields(log.Fields{"noteRequest": noteRequest}).Info("note request received")
+	log.WithFields(log.Fields{"noteRequest": noteRequest}).Info("note request received!!!")
 
 	/*	if noteRequest.Id == "" {
 		log.WithFields(log.Fields{"noteId": noteRequest.Id}).Warn("note id missing, still!")

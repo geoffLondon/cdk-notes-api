@@ -7,7 +7,7 @@ type NoteRequest struct {
 }
 
 type NoteResponse struct {
-	Note Note `json:"note"`
+	Note Note `json:"createNote"`
 }
 
 type Note struct {
