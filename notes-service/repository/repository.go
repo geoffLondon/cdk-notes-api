@@ -21,7 +21,7 @@ func NewDynamoServiceRepository(dynamoDbClient aws_dynamodb.DynamoDbClient) *Dyn
 }
 
 func (repo *DynamoServiceRepository) Save(ctx context.Context, notesService NotesService) error {
-	log.WithFields(log.Fields{"service": notesService.Id}).Info("Saving request")
+	log.WithFields(log.Fields{"service": notesService}).Info("Saving request")
 
 	err := repo.dynamoDbClient.Put(ctx, &notesService)
 	if err != nil {
