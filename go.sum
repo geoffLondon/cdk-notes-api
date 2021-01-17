@@ -54,8 +54,8 @@ github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5Kwzbycv
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=
-github.com/geoffLondon/aws-appsync-resolvers v1.0.4 h1:hjYQWvron5lSmpoiqFWBqlI3knUcnU9Jg4bvuLmtRfQ=
-github.com/geoffLondon/aws-appsync-resolvers v1.0.4/go.mod h1:jY27xoLpW1GAb0upX/Ez72Bgt51nb88OxiKKeh6wjTo=
+github.com/geoffLondon/aws-appsync-resolvers v1.0.5 h1:pJvyDSuBTfsRfmFwU+W8sow11v2uGODxieIl3Iwirgk=
+github.com/geoffLondon/aws-appsync-resolvers v1.0.5/go.mod h1:jY27xoLpW1GAb0upX/Ez72Bgt51nb88OxiKKeh6wjTo=
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
 github.com/go-gl/glfw v0.0.0-20190409004039-e6da0acd62b1/go.mod h1:vR7hzQXu2zJy9AVAgeJqvqgH9Q5CA+iKCZ2gyEVpxRU=
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
