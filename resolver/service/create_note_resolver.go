@@ -2,6 +2,7 @@ package service_resolver
 
 import (
 	"context"
+	"errors"
 	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
 	//"github.com/geoffLondon/cdk-notes-api/uuid"
 	log "github.com/sirupsen/logrus"
@@ -14,7 +15,7 @@ type CreateNoteParams struct {
 }
 
 type CreateNoteResolver interface {
-	Handle(ctx context.Context, note Note) (string, error)
+	Handle(ctx context.Context, noteRequest NoteRequest) (string, error)
 }
 
 type DefaultCreateNoteResolver struct {
@@ -26,11 +27,12 @@ func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRe
 	return &DefaultCreateNoteResolver{serviceRepository: serviceRepository}
 }
 
-func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, note Note) (string, error) {
-	log.WithFields(log.Fields{"note": note}).Info("request received")
+func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, noteRequest NoteRequest) (string, error) {
+	log.WithFields(log.Fields{"noteRequest": noteRequest}).Info("note request received")
 
-	if note.Id == "" {
-		log.WithFields(log.Fields{"noteId": note.Id}).Warn("note id missing, still!")
+	if noteRequest.Id == "" {
+		log.WithFields(log.Fields{"noteId": noteRequest.Id}).Warn("note id missing, still!")
+		return "", errors.New("error, missing fields")
 	}
 
 	/*	if err := note.validate(); err != nil {
@@ -40,9 +42,9 @@ func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, note Note)
 
 	service := service_repository.NotesService{
 		//Id:        resolver.uuidGenerator.New(),
-		Id:        note.Id,
-		Name:      note.Name,
-		Completed: note.Completed,
+		Id:        noteRequest.Id,
+		Name:      noteRequest.Name,
+		Completed: noteRequest.Completed,
 	}
 
 	log.WithFields(log.Fields{"=======serviceId========": service.Id, "=======serviceName========": service.Name, "=======serviceCompleted========": service.Completed, "=======service========": service}).Info("NotesService")

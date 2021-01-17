@@ -1,6 +1,6 @@
 package service_resolver
 
-type Note struct {
+type NoteRequest struct {
 	Id        string `json:"id"`
 	Name      string `json:"name"`
 	Completed bool   `json:"completed"`

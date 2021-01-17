@@ -6,13 +6,7 @@ schema {
 type Note {
     id: String!
     name: String!
-    completed: Boolean!
-}
-
-input NoteInput {
-    id: String!
-    name: String!
-    completed: Boolean!
+    completed: Boolean
 }
 
 type Query {
@@ -20,5 +14,5 @@ type Query {
 }
 
 type Mutation {
-    createNote(note: NoteInput!): Note
+    createNote(id: String!, name: String!, completed: Boolean): Note
 }
