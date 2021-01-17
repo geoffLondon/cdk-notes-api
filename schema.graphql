@@ -14,5 +14,5 @@ type Query {
 }
 
 type Mutation {
-    createNote(id: String!, name: String!, completed: Boolean): Note
+    createNote(id: String!, name: String!, completed: Boolean): Note!
 }
