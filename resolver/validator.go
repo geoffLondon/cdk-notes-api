@@ -1,4 +1,4 @@
-package service_resolver
+package resolver
 
 type Validator interface {
 	Validate(noteRequest NoteRequest) error

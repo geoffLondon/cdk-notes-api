@@ -1,4 +1,4 @@
-package service_resolver
+package resolver
 
 type NoteRequest struct {
 	Name      string `json:"name"`

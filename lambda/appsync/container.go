@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/geoffLondon/aws-appsync-resolvers"
-	service_resolver "github.com/geoffLondon/cdk-notes-api/resolver/service"
+	"github.com/geoffLondon/cdk-notes-api/resolver"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -11,7 +11,7 @@ type Container interface {
 }
 
 type DefaultContainer struct {
-	CreateNoteResolver service_resolver.CreateNoteResolver
+	CreateNoteResolver resolver.CreateNoteResolver
 }
 
 func (container DefaultContainer) Resolver() resolvers.Repository {

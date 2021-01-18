@@ -7,7 +7,7 @@ import (
 	aws_dynamodb "github.com/geoffLondon/cdk-notes-api/aws/dynamodb"
 	"github.com/geoffLondon/cdk-notes-api/configuration"
 	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
-	"github.com/geoffLondon/cdk-notes-api/resolver/service"
+	"github.com/geoffLondon/cdk-notes-api/resolver"
 	"github.com/geoffLondon/cdk-notes-api/uuid"
 	"github.com/google/wire"
 )
@@ -25,14 +25,14 @@ var Set = wire.NewSet(
 	wire.Struct(new(DefaultContainer), "*"),
 	wire.Bind(new(Container), new(DefaultContainer)),
 
-	service_resolver.NewDefaultCreateNoteResolver,
-	wire.Bind(new(service_resolver.CreateNoteResolver), new(*service_resolver.DefaultCreateNoteResolver)),
+	resolver.NewDefaultCreateNoteResolver,
+	wire.Bind(new(resolver.CreateNoteResolver), new(*resolver.DefaultCreateNoteResolver)),
 
 	service_repository.NewDynamoServiceRepository,
 	wire.Bind(new(service_repository.ServiceRepository), new(*service_repository.DynamoServiceRepository)),
 
-	service_resolver.NewValidatorImpl,
-	wire.Bind(new(service_resolver.Validator), new(*service_resolver.ValidatorImpl)),
+	resolver.NewValidatorImpl,
+	wire.Bind(new(resolver.Validator), new(*resolver.ValidatorImpl)),
 
 	uuid.NewDefaultUuidGenerator,
 	wire.Bind(new(uuid.UuidGenerator), new(*uuid.DefaultUuidGenerator)),
