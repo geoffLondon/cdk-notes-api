@@ -1,4 +1,4 @@
-package resolver
+package create_note_resolver
 
 type Validator interface {
 	Validate(noteRequest NoteRequest) error

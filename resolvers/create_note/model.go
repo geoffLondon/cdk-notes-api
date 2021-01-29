@@ -1,4 +1,4 @@
-package resolver
+package create_note_resolver
 
 type NoteRequest struct {
 	Name      string `json:"name"`

@@ -133,11 +133,24 @@ tasks:
       - task: build-golang-lambda
         vars: {DESTINATION_FILE: lambda/appsync, SOURCE_PACKAGE: lambda/appsync}
 
-  synth-local:
+  cdk:
     desc: Validate and synthetise deployment infrastructure
     cmds:
       #- circleci config validate
+      - task: lint
       - task: synth
+
+  lint:
+    desc: Lint the CDK folder
+    dir: stack
+    cmds:
+      - npm run lint:fix
+
+  #synth-local:
+    #desc: Validate and synthetise deployment infrastructure
+    #cmds:
+      #- circleci config validate
+      #- task: synth
 
   synth:
     desc: Synthetise deployment infrastructure
