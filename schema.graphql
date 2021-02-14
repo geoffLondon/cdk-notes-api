@@ -4,8 +4,8 @@ schema {
 }
 
 type Note {
-    name: String!
-    completed: Boolean
+    text: String!
+    done: Boolean
 }
 
 type Query {
@@ -13,5 +13,5 @@ type Query {
 }
 
 type Mutation {
-    createNote(name: String!, completed: Boolean): Boolean
+    createNote(text: String!, done: Boolean): Boolean
 }

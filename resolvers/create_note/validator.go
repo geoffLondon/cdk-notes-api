@@ -12,11 +12,11 @@ func NewValidatorImpl() *ValidatorImpl {
 }
 
 func (validator ValidatorImpl) Validate(noteRequest NoteRequest) error {
-	if noteRequest.Name == "" {
-		return ErrMissingName
+	if noteRequest.Text == "" {
+		return ErrMissingText
 	}
-	/*	if validator.Completed == false {
-		return ErrMissingCompleted
+	/*	if validator.Done == false {
+		return ErrMissingDone
 	}*/
 
 	return nil

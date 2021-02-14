@@ -33,9 +33,9 @@ func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, noteReques
 	}
 
 	service := service_repository.NotesService{
-		Id:        resolver.uuidGenerator.New(),
-		Name:      noteRequest.Name,
-		Completed: noteRequest.Completed,
+		Id:   resolver.uuidGenerator.New(),
+		Text: noteRequest.Text,
+		Done: noteRequest.Done,
 	}
 
 	if err := resolver.serviceRepository.Save(ctx, service); err != nil {

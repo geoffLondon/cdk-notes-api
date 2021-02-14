@@ -3,6 +3,6 @@ package create_note_resolver
 import "errors"
 
 var (
-	ErrMissingName = errors.New("note name missing")
-	//ErrMissingCompleted = errors.New("completed missing")
+	ErrMissingText = errors.New("note text missing")
+	//ErrMissingDone = errors.New("done missing")
 )
