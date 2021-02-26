@@ -3,6 +3,7 @@ import * as lambda from '@aws-cdk/aws-lambda'
 import * as iam from '@aws-cdk/aws-iam'
 import {Props} from "../props";
 import {Name} from '../../utils/resource-name'
+import { LogGroup, RetentionDays } from '@aws-cdk/aws-logs'
 
 export const LambdaDataSource = (scope: Construct, props: Props): lambda.IFunction => {
     const functionName = Name(props, 'graphql-datasource')
@@ -42,6 +43,11 @@ export const LambdaDataSource = (scope: Construct, props: Props): lambda.IFuncti
             ],
         }),
     )
+
+    const logGroup = new LogGroup(scope, 'log-group', {
+        retention: RetentionDays.ONE_MONTH,
+    });
+    logGroup.grantWrite(fn)
 
     return fn
 }
