@@ -66,7 +66,7 @@ tasks:
   test:
     cmds:
       - task: test:unit
-      - task: test:int
+      #- task: test:int
 
   mocks:
     desc: Generate all the mocks needed for the tests
@@ -77,6 +77,10 @@ tasks:
         vars: {SOURCE_FILE: uuid/uuid.go}
       - task: mockgen:source
         vars: {SOURCE_FILE: notes-service/repository/repository.go}
+      - task: mockgen:source
+        vars: { SOURCE_FILE: resolvers/create_note/validator.go }
+      - task: mockgen:source
+        vars: { SOURCE_FILE: notes-service/repository/repository.go }
 
   mockgen:reflect:
     desc: Generate a mock for an interface using reflect mode

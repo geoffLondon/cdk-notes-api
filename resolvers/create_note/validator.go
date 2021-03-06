@@ -1,5 +1,7 @@
 package create_note_resolver
 
+import "errors"
+
 type Validator interface {
 	Validate(noteRequest NoteRequest) error
 }
@@ -11,9 +13,13 @@ func NewValidatorImpl() *ValidatorImpl {
 	return &ValidatorImpl{}
 }
 
+const (
+	ErrMissingText = "note text missing"
+)
+
 func (validator ValidatorImpl) Validate(noteRequest NoteRequest) error {
 	if noteRequest.Text == "" {
-		return ErrMissingText
+		return errors.New(ErrMissingText)
 	}
 	/*	if validator.Done == false {
 		return ErrMissingDone

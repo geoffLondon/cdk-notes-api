@@ -11,8 +11,8 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/google/wire v0.4.0
 	github.com/guregu/dynamo v1.10.0
-	github.com/onsi/ginkgo v1.14.2 // indirect
-	github.com/onsi/gomega v1.10.3 // indirect
+	github.com/onsi/ginkgo v1.14.2
+	github.com/onsi/gomega v1.10.3
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/viper v1.7.1
 )
