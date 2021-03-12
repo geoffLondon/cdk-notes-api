@@ -5,7 +5,6 @@ import * as ssm from '@aws-cdk/aws-ssm'
 export const ParameterStore = (stack: Construct, props: Props, graphqlUrl: string) => {
 
     const serviceParams = JSON.stringify({
-        version: '2020.11.16',
         graphQlEndpoint: graphqlUrl
     })
 

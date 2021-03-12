@@ -33,8 +33,6 @@ var _ = Describe("CreateNoteResolver Test", func() {
 
 	BeforeEach(func() {
 		controller = gomock.NewController(GinkgoT())
-		defer controller.Finish()
-
 		validator = mock_create_note_validator.NewMockValidator(controller)
 		repository = mock_notes_service_repository.NewMockServiceRepository(controller)
 		uuid = mock_uuid_generator.NewMockUuidGenerator(controller)
@@ -43,26 +41,29 @@ var _ = Describe("CreateNoteResolver Test", func() {
 
 	})
 
+	AfterEach(func() {
+		controller.Finish()
+	})
+
 	Describe(".Handle()", func() {
 		var (
 			request create_note_resolver.NoteRequest
 			service service_repository.NotesService
 		)
 
-		BeforeEach(func() {
+		JustBeforeEach(func() {
 			request = create_note_fixtures.ValidCreateNoteRequest()
 			service = service_repository.NotesService{
 				Text: "lets make notes",
 				Done: true,
 			}
+			uuid.EXPECT().New()
+			validator.EXPECT().Validate(request).Return(nil)
 		})
 
-		Context("Resolver Handler success", func() {
+		Context("Resolver Handler succeeds", func() {
 			It("Returns true", func() {
-				uuid.EXPECT().New()
-				validator.EXPECT().Validate(request).Return(nil)
 				repository.EXPECT().Save(ctx, service).Return(nil)
-
 				result, err := resolver.Handle(ctx, request)
 
 				Expect(result).To(BeTrue())
@@ -71,12 +72,12 @@ var _ = Describe("CreateNoteResolver Test", func() {
 			})
 		})
 
-		Context("Resolver Handler failure", func() {
-			It("Returns false", func() {
+		Context("Resolver Handler fails", func() {
+			BeforeEach(func() {
 				errFindId := errors.New("text missing")
-				uuid.EXPECT().New()
-				validator.EXPECT().Validate(request).Return(nil)
 				repository.EXPECT().Save(ctx, service).Return(errFindId)
+			})
+			It("Returns false", func() {
 
 				result, err := resolver.Handle(ctx, request)
 
