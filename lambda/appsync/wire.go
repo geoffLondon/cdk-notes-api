@@ -8,6 +8,7 @@ import (
 	"github.com/geoffLondon/cdk-notes-api/configuration"
 	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
 	create_note_resolver "github.com/geoffLondon/cdk-notes-api/resolvers/create_note"
+	list_notes_resolver "github.com/geoffLondon/cdk-notes-api/resolvers/list_notes"
 	"github.com/geoffLondon/cdk-notes-api/uuid"
 	"github.com/google/wire"
 )
@@ -27,6 +28,9 @@ var Set = wire.NewSet(
 
 	create_note_resolver.NewDefaultCreateNoteResolver,
 	wire.Bind(new(create_note_resolver.CreateNoteResolver), new(*create_note_resolver.DefaultCreateNoteResolver)),
+
+	list_notes_resolver.NewDefaultListNotesResolver,
+	wire.Bind(new(list_notes_resolver.ListNotesResolver), new(*list_notes_resolver.DefaultListNotesResolver)),
 
 	service_repository.NewDynamoServiceRepository,
 	wire.Bind(new(service_repository.ServiceRepository), new(*service_repository.DynamoServiceRepository)),

@@ -21,9 +21,6 @@ func (validator ValidatorImpl) Validate(noteRequest NoteRequest) error {
 	if noteRequest.Text == "" {
 		return errors.New(ErrMissingText)
 	}
-	/*	if validator.Done == false {
-		return ErrMissingDone
-	}*/
 
 	return nil
 }

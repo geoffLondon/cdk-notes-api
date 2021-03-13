@@ -8,6 +8,7 @@ import (
 type DynamoDbClient interface {
 	TableName() string
 	Put(ctx context.Context, data interface{}) error
+	FindAll(ctx context.Context, out interface{}) error
 }
 
 type DefaultDynamoDbClient struct {
@@ -26,4 +27,8 @@ func (client *DefaultDynamoDbClient) TableName() string {
 
 func (client *DefaultDynamoDbClient) Put(ctx context.Context, data interface{}) error {
 	return client.table.Put(data).RunWithContext(ctx)
+}
+
+func (client *DefaultDynamoDbClient) FindAll(ctx context.Context, out interface{}) error {
+	return client.table.Scan().AllWithContext(ctx, out)
 }
