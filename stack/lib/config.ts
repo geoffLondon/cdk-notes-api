@@ -8,7 +8,6 @@ export interface StaticConfig {
 export interface Config {
     stage: string
     environment: string
-    smartnumbersUserPoolId: string
 }
 
 export const NewConfig = (stage: string): Config => {
