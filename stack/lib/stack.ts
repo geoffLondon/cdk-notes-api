@@ -5,7 +5,6 @@ import { IamRoleAppSync } from './api/iam-role-app-sync'
 import { IamRoleStack } from './api/iam-role-stack'
 import { AppSync } from './api/app-sync'
 import { DynamodbServicesTable } from './api/dynamodb-services-table'
-//import {ParameterStore} from "./api/parameter-store"
 
 export class Stack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props: Props) {
@@ -17,9 +16,6 @@ export class Stack extends cdk.Stack {
         IamRoleAppSync(this, props, lambdaDataSource.functionArn)
 
         AppSync(this, props, lambdaDataSource)
-
-        /*const appSync = AppSync(this, props, lambdaDataSource)
-        ParameterStore(this, props, appSync.graphqlUrl)*/
 
         DynamodbServicesTable(this, props)
     }
