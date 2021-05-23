@@ -42,6 +42,5 @@ func (resolver *DefaultCreateNoteResolver) Handle(ctx context.Context, noteReque
 		log.WithFields(log.Fields{"service": service, "err": err}).Warn("failed saving service to db")
 		return false, err
 	}
-
 	return true, nil
 }
