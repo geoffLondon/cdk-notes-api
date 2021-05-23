@@ -22,23 +22,23 @@ func NewDynamoServiceRepository(dynamoDbClient aws_dynamodb.DynamoDbClient) *Dyn
 	}
 }
 
-func (repo *DynamoServiceRepository) Save(ctx context.Context, notesService NotesService) error {
+func (rcvr *DynamoServiceRepository) Save(ctx context.Context, notesService NotesService) error {
 	log.WithFields(log.Fields{"service": notesService}).Info("Saving request")
 
-	err := repo.dynamoDbClient.Put(ctx, &notesService)
+	err := rcvr.dynamoDbClient.Put(ctx, &notesService)
 	if err != nil {
 		log.WithFields(log.Fields{"err": err}).Error("Error writing to Dynamo")
 	} else {
-		log.WithFields(log.Fields{"table": repo.dynamoDbClient.TableName()}).Info("Saved record successfully")
+		log.WithFields(log.Fields{"table": rcvr.dynamoDbClient.TableName()}).Info("Saved record successfully")
 	}
 
 	return err
 }
 
-func (repo *DynamoServiceRepository) FindAll(ctx context.Context) ([]NotesService, error) {
+func (rcvr *DynamoServiceRepository) FindAll(ctx context.Context) ([]NotesService, error) {
 	log.Debug("Finding all Notes")
 	notes := make([]NotesService, 0)
-	if err := repo.dynamoDbClient.FindAll(ctx, &notes); err != nil {
+	if err := rcvr.dynamoDbClient.FindAll(ctx, &notes); err != nil {
 		if err == dynamo.ErrNotFound {
 			log.Debug("No items found in table")
 		} else {

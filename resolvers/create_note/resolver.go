@@ -25,7 +25,7 @@ func NewDefaultCreateNoteResolver(serviceRepository service_repository.ServiceRe
 	}
 }
 
-func (resolver DefaultCreateNoteResolver) Handle(ctx context.Context, noteRequest NoteRequest) (bool, error) {
+func (resolver *DefaultCreateNoteResolver) Handle(ctx context.Context, noteRequest NoteRequest) (bool, error) {
 	log.WithFields(log.Fields{"noteRequest": noteRequest}).Info("note request received")
 
 	if err := resolver.validator.Validate(noteRequest); err != nil {

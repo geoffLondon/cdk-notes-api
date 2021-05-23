@@ -72,15 +72,13 @@ tasks:
     desc: Generate all the mocks needed for the tests
     cmds:
       - task: mockgen:source
-        vars: {SOURCE_FILE: aws/dynamodb/client.go}
+        vars: { SOURCE_FILE: aws/dynamodb/client.go }
       - task: mockgen:source
-        vars: {SOURCE_FILE: uuid/uuid.go}
-      - task: mockgen:source
-        vars: {SOURCE_FILE: notes-service/repository/repository.go}
-      - task: mockgen:source
-        vars: { SOURCE_FILE: resolvers/create_note/validator.go }
+        vars: { SOURCE_FILE: uuid/uuid.go }
       - task: mockgen:source
         vars: { SOURCE_FILE: notes-service/repository/repository.go }
+      - task: mockgen:source
+        vars: { SOURCE_FILE: resolvers/create_note/validator.go }
 
   mockgen:reflect:
     desc: Generate a mock for an interface using reflect mode
@@ -150,11 +148,11 @@ tasks:
     cmds:
       - npm run lint:fix
 
-  #synth-local:
-    #desc: Validate and synthetise deployment infrastructure
-    #cmds:
+  synth-local:
+    desc: Validate and synthetise deployment infrastructure
+    cmds:
       #- circleci config validate
-      #- task: synth
+      - task: synth
 
   synth:
     desc: Synthetise deployment infrastructure

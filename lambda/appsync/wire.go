@@ -3,12 +3,12 @@
 package main
 
 import (
-	aws_config "github.com/geoffLondon/cdk-notes-api/aws"
-	aws_dynamodb "github.com/geoffLondon/cdk-notes-api/aws/dynamodb"
+	"github.com/geoffLondon/cdk-notes-api/aws"
+	"github.com/geoffLondon/cdk-notes-api/aws/dynamodb"
 	"github.com/geoffLondon/cdk-notes-api/configuration"
-	service_repository "github.com/geoffLondon/cdk-notes-api/notes-service/repository"
-	create_note_resolver "github.com/geoffLondon/cdk-notes-api/resolvers/create_note"
-	list_notes_resolver "github.com/geoffLondon/cdk-notes-api/resolvers/list_notes"
+	"github.com/geoffLondon/cdk-notes-api/notes-service/repository"
+	"github.com/geoffLondon/cdk-notes-api/resolvers/create_note"
+	"github.com/geoffLondon/cdk-notes-api/resolvers/list_notes"
 	"github.com/geoffLondon/cdk-notes-api/uuid"
 	"github.com/google/wire"
 )
@@ -32,8 +32,8 @@ var Set = wire.NewSet(
 	list_notes_resolver.NewDefaultListNotesResolver,
 	wire.Bind(new(list_notes_resolver.ListNotesResolver), new(*list_notes_resolver.DefaultListNotesResolver)),
 
-	service_repository.NewDynamoServiceRepository,
-	wire.Bind(new(service_repository.ServiceRepository), new(*service_repository.DynamoServiceRepository)),
+	repository.NewDynamoServiceRepository,
+	wire.Bind(new(repository.ServiceRepository), new(*repository.DynamoServiceRepository)),
 
 	create_note_resolver.NewValidatorImpl,
 	wire.Bind(new(create_note_resolver.Validator), new(*create_note_resolver.ValidatorImpl)),
